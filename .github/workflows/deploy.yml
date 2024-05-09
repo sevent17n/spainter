@@ -5,28 +5,6 @@ on:
       - main
 
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Deploy to Server
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.PASSWORD }}
-          port: ${{ secrets.PORT }}
-          script: |
-            cd ./spainter
-            git pull ${{ secrets.REPO_URL }}
-            echo "SITE_URL=${{ secrets.SITE_URL }}" > .env.local
-            echo "API_URL=${{ secrets.API_URL }}" >> .env.local
-            echo "YANDEX_VERIFICATION=${{ secrets.YANDEX_VERIFICATION }}" >> .env.local
-            echo "GOOGLE_VERIFICATION=${{ secrets.GOOGLE_VERIFICATION }}" >> .env.local
-            echo "YANDEX_METRIKA_ID=${{ secrets.YANDEX_METRIKA_ID }}" >> .env.local
-            docker stop spainter
-            docker rm spainter
-            docker build -t "spainter" .
-            docker run -d spainter
   node_setup:
     runs-on: ubuntu-latest
     steps:
@@ -71,6 +49,7 @@ jobs:
           file: ./Dockerfile
           push: false
   deploy:
+    needs: [node_setup, lint, build]
     runs-on: ubuntu-latest
     steps:
       - name: Deploy to Server
