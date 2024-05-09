@@ -1,0 +1,39 @@
+name: Deploy
+on:
+  push:
+    branches:
+      - main
+jobs:
+  checkout:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+  lint:
+    runs-on: ubuntu-latest
+    needs: checkout
+    steps:
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run linting
+        run: npm run lint
+  # deploy:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Deploy to Server
+  #       uses: appleboy/ssh-action@master
+  #       with:
+  #         host: ${{ secrets.HOST }}
+  #         username: ${{ secrets.USERNAME }}
+  #         password: ${{ secrets.PASSWORD }}
+  #         port: ${{ secrets.PORT }}
+  #         script: |
+  #           git pull https://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:x-oauth-basic@github.com/RATE-THIS-CO/rate-this_client.git dev --rebase
+  #           cd /root/
+  #           docker stop
+  #           docker rm
+  #           docker-compose build client
+  #           docker-compose up -d
+  #           docker-compose down
+  #           docker-compose up -d

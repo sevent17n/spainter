@@ -1,0 +1,34 @@
+{
+  "IndexPage": {
+    "navigation": {
+      "latest": "Neueste",
+      "technologies": "Technologien",
+      "economics": "Wirtschaft",
+      "incident": "Vorfall",
+      "culture": "Kultur"
+    }
+  },
+  "Components": {
+    "subscribeNewsOur": "Abonnieren",
+    "subscribeNews": "Abonnieren Sie Nachrichten",
+    "logo": "SpainInter Logo",
+    "paginationButton": "Gehe zu Seite {page}",
+    "selectLanguage": "Sprache wählen",
+    "language": "Sprache",
+    "content": "Inhalt",
+    "ad": "Anzeige"
+  },
+  "Alarms": {
+    "empty": "Keine Nachrichten hier bisher"
+  },
+  "MetaData": {
+    "IndexPage": {
+      "title": "Alle Nachrichten aus Spanien. Aktuelle Nachrichten aus Spanien. Spanien heute.",
+      "description": "Aktuelle Nachrichten aus Spanien. Spanien heute: die wichtigsten Ereignisse, Vorfälle, politischen und wirtschaftlichen Nachrichten. Berichte, Analysen, Prognosen, Expertenmeinungen."
+    },
+    "CategoryPage": {
+      "title": "Alle Nachrichten aus Spanien. {category}. Aktuelle Nachrichten aus Spanien. Spanien heute.",
+      "description": "Aktuelle Nachrichten aus Spanien. Spanien heute: die wichtigsten Ereignisse, Vorfälle, politischen und wirtschaftlichen Nachrichten. Berichte, Analysen, Prognosen, Expertenmeinungen. {category}."
+    }
+  }
+}
