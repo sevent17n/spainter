@@ -37,11 +37,11 @@ jobs:
         uses: docker/setup-buildx-action@v2
       - name: Initialize environment variables
         run: |
-          echo "SITE_URL=https://example.com" > .env.local
-          echo "API_URL=https://api.example.com" >> .env.local
-          echo "YANDEX_VERIFICATION=1234567890" >> .env.local
-          echo "GOOGLE_VERIFICATION=1234567890" >> .env.local
-          echo "YANDEX_METRIKA_ID=1234567890" >> .env.local
+          echo "SITE_URL=https://${{ secrets.SITE_URL }}" > .env.local
+          echo "API_URL=https://${{ secrets.API_URL }}" >> .env.local
+          echo "YANDEX_VERIFICATION=${{ secrets.YANDEX_VERIFICATION }}" >> .env.local
+          echo "GOOGLE_VERIFICATION=${{ secrets.GOOGLE_VERIFICATION }}" >> .env.local
+          echo "YANDEX_METRIKA_ID=${{ secrets.YANDEX_METRIKA_ID }}" >> .env.local
       - name: Build
         uses: docker/build-push-action@v3
         with:
