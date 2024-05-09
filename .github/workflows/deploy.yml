@@ -5,6 +5,28 @@ on:
       - main
 
 jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to Server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          port: ${{ secrets.PORT }}
+          script: |
+            git pull ${{ secrets.REPO_URL }}
+            cd ./spainter
+            echo "SITE_URL=${{ secrets.SITE_URL }}" > .env.local
+            echo "API_URL=${{ secrets.API_URL }}" >> .env.local
+            echo "YANDEX_VERIFICATION=${{ secrets.YANDEX_VERIFICATION }}" >> .env.local
+            echo "GOOGLE_VERIFICATION=${{ secrets.GOOGLE_VERIFICATION }}" >> .env.local
+            echo "YANDEX_METRIKA_ID=${{ secrets.YANDEX_METRIKA_ID }}" >> .env.local
+            docker stop spainter
+            docker rm spainter
+            docker build -t "spainter" .
+            docker run spainter -d
   node_setup:
     runs-on: ubuntu-latest
     steps:
@@ -48,22 +70,22 @@ jobs:
           context: .
           file: ./Dockerfile
           push: false
-  # deploy:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Deploy to Server
-  #       uses: appleboy/ssh-action@master
-  #       with:
-  #         host: ${{ secrets.HOST }}
-  #         username: ${{ secrets.USERNAME }}
-  #         password: ${{ secrets.PASSWORD }}
-  #         port: ${{ secrets.PORT }}
-  #         script: |
-  #           git pull https://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:x-oauth-basic@github.com/RATE-THIS-CO/rate-this_client.git dev --rebase
-  #           cd /root/
-  #           docker stop
-  #           docker rm
-  #           docker-compose build client
-  #           docker-compose up -d
-  #           docker-compose down
-  #           docker-compose up -d
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to Server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          port: ${{ secrets.PORT }}
+          script: |
+            git pull https://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:x-oauth-basic@github.com/RATE-THIS-CO/rate-this_client.git dev --rebase
+            cd /root/
+            docker stop
+            docker rm
+            docker-compose build client
+            docker-compose up -d
+            docker-compose down
+            docker-compose up -d
