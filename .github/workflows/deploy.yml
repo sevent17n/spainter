@@ -42,7 +42,7 @@ jobs:
           echo "YANDEX_VERIFICATION=1234567890" >> .env.local
           echo "GOOGLE_VERIFICATION=1234567890" >> .env.local
           echo "YANDEX_METRIKA_ID=1234567890" >> .env.local
-      - name: Build1
+      - name: Build
         uses: docker/build-push-action@v3
         with:
           context: .
